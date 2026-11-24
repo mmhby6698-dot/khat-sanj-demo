@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>خط‌سنج | طراحی و اجرای سوله و سازه‌ی صنعتی — نمونه دمو</title>
+<meta name="description" content="نمونه‌کار طراحی وب: سایت شرکت مهندسی سازه با پیکربندی سه‌بعدی سوله، لایه‌های سازه، نقشه‌ی خودکار و برآورد آموزشی. دمو است و شرکت واقعی نیست.">
+<meta name="theme-color" content="#0f2c4c">
+<meta property="og:title" content="خط‌سنج — نمونه دمو">
+<meta property="og:description" content="هر سازه، ابتدا یک محاسبه است.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/Vazirmatn-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">پرش به محتوا</a>
+<div class="demo-bar" role="note">نمونه دمو — شرکت، پروژه‌ها، ضرایب و برآوردهای این صفحه فرضی‌اند و جای محاسبه‌ی مهندس را نمی‌گیرند</div>
+<header class="top">
+  <a class="logo" href="#top" aria-label="خط‌سنج، بازگشت به بالا"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 34V18L20 9l14 9v16M6 18h28" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M3 37h34" stroke="#ff7a3d" stroke-width="2.4"/></svg><b>خط‌سنج</b><small>مهندسی سازه</small></a>
+  <nav aria-label="منوی اصلی"><a href="#config"><i>A1</i>پیکربندی سوله</a><a href="#story"><i>A2</i>از اسکچ تا سازه</a><a href="#projects"><i>A3</i>پروژه‌ها</a><a class="cta" href="#contact">درخواست بررسی</a></nav>
+</header>
+
+<main id="main">
+<section class="hero" id="top" aria-labelledby="h1">
+  <div class="hero-copy">
+    <p class="tag">سوله · سازه‌ی فلزی · سالن صنعتی</p>
+    <h1 id="h1">هر سازه،<br>ابتدا یک <em>محاسبه</em> است.</h1>
+    <p class="lead">پیش از اولین تماس، سوله‌ات را همین‌جا بکش: دهانه، طول و ارتفاع را عوض کن و مدل سه‌بعدی و نقشه را همان لحظه ببین.</p>
+    <div class="hero-cta"><a class="btn" href="#config">پیکربندی سوله</a><a class="link" href="#projects">پروژه‌های نمونه</a></div>
+  </div>
+  <div class="hero-draw">
+    <svg id="heroSvg" viewBox="0 0 640 420" role="img" aria-label="نقشه‌ی نمای یک قاب سوله با خطوط اندازه"></svg>
+    <table class="title-block" aria-label="جدول مشخصات برگه">
+      <tr><th>پروژه</th><td>نمونه دمو</td></tr><tr><th>برگه</th><td class="ltr">S-01</td></tr><tr><th>مقیاس</th><td class="ltr">1:200</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="config" id="config" aria-labelledby="c-h">
+  <div class="sec-head"><span class="sheet ltr">A1</span><h2 id="c-h">سوله‌ات را بکش</h2><p>مدل را با ماوس یا انگشت بچرخان. لایه‌ها را روشن و خاموش کن و ساخت مرحله‌ای را ببین.</p></div>
+  <div class="cfg-grid">
+    <div class="viewer">
+      <canvas id="cv" tabindex="0" aria-label="مدل سه‌بعدی سوله؛ با کشیدن یا کلیدهای جهت می‌چرخد" role="img"></canvas>
+      <div class="views" role="group" aria-label="نما">
+        <button type="button" data-v="iso" aria-pressed="true">ایزومتریک</button><button type="button" data-v="front" aria-pressed="false">نمای روبه‌رو</button><button type="button" data-v="side" aria-pressed="false">نمای جانبی</button><button type="button" data-v="top" aria-pressed="false">پلان</button>
+      </div>
+      <div class="zoom"><button type="button" id="zin" aria-label="بزرگ‌نمایی">+</button><button type="button" id="zout" aria-label="کوچک‌نمایی">−</button><button type="button" id="build" class="wide">▶ ساخت مرحله‌ای</button></div>
+      <p class="stage" id="stage" aria-live="polite"></p>
+    </div>
+    <div class="ctrls">
+      <fieldset class="type"><legend>نوع قاب</legend>
+        <label><input type="radio" name="t" value="portal" checked><span>تیرورقی (قاب شیب‌دار)</span></label>
+        <label><input type="radio" name="t" value="truss"><span>خرپایی</span></label></fieldset>
+      <label class="rg">دهانه <output id="oS"></output><input type="range" id="S" min="12" max="40" step="1" value="24"></label>
+      <label class="rg">طول <output id="oL"></output><input type="range" id="L" min="18" max="120" step="6" value="60"></label>
+      <label class="rg">ارتفاع ستون <output id="oH"></output><input type="range" id="H" min="5" max="12" step="0.5" value="8"></label>
+      <label class="rg">شیب سقف <output id="oP"></output><input type="range" id="P" min="5" max="20" step="1" value="10"></label>
+      <label class="rg">فاصله‌ی قاب‌ها <output id="oB"></output><input type="range" id="B" min="5" max="8" step="0.5" value="6"></label>
+      <fieldset><legend>لایه‌ها</legend><div class="layers" id="layers"></div></fieldset>
+    </div>
+    <div class="out" aria-live="polite">
+      <dl id="stats"></dl>
+      <div class="est">
+        <label>ضریب فرضی وزن فولاد <span class="ltr">(kg/m²)</span><input id="coef" inputmode="decimal"></label>
+        <p><small>برآورد آموزشی وزن اسکلت</small><b id="wt">—</b></p>
+        <p class="note">این عدد فقط برای نمایش است. وزن واقعی را بار برف، باد، زلزله، جرثقیل و محاسبه‌ی مهندس سازه تعیین می‌کند.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="story" aria-labelledby="s-h">
+  <div class="sec-head"><span class="sheet ltr">A2</span><h2 id="s-h">از اسکچ تا سازه</h2><p>یک قاب، چهار مرحله. اسکرول کن.</p></div>
+  <div class="story-grid">
+    <div class="story-fig"><svg id="storySvg" viewBox="0 0 600 400" role="img" aria-label="تحول یک قاب از اسکچ دستی تا سازه‌ی ساخته‌شده"></svg></div>
+    <ol class="story-steps">
+      <li data-s="0"><b>۰۱ · اسکچ</b><p>اولین جلسه: کاربری، ابعاد زمین، جرثقیل یا بدون جرثقیل. چند خط روی کاغذ.</p></li>
+      <li data-s="1"><b>۰۲ · نقشه</b><p>ابعاد دقیق، محور قاب‌ها و تراز‌ها؛ نقشه‌ای که هر دو طرف امضا می‌کنند.</p></li>
+      <li data-s="2"><b>۰۳ · مدل و محاسبه</b><p>مدل سازه، بارگذاری و کنترل اعضا طبق مقررات ملی ساختمان.</p></li>
+      <li data-s="3"><b>۰۴ · ساخت و نصب</b><p>ساخت قطعات در کارخانه، فونداسیون، نصب اسکلت و پوشش.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="projects" id="projects" aria-labelledby="p-h">
+  <div class="sec-head"><span class="sheet ltr">A3</span><h2 id="p-h">پروژه‌های نمونه</h2><p>هر سه پروژه <b>فرضی</b>‌اند و برای نمایش ساختار صفحه آمده‌اند.</p></div>
+  <div class="proj" id="proj"></div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="f-h">
+  <div class="sec-head"><span class="sheet ltr">A4</span><h2 id="f-h">درخواست بررسی</h2><p>ابعادی که در پیکربندی انتخاب کردی، خودکار اینجا می‌آید.</p></div>
+  <form id="cf" novalidate>
+    <label>نام و شرکت<input name="n" required autocomplete="organization"></label>
+    <label>شماره تماس<input name="p" type="tel" dir="ltr" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxxx"></label>
+    <label>کاربری<select name="u"><option>انبار</option><option>سالن تولید</option><option>دامداری و مرغداری</option><option>فروشگاه بزرگ</option></select></label>
+    <label>شهر<input name="c" autocomplete="address-level2"></label>
+    <label class="full">مشخصات انتخابی<textarea id="spec" rows="3" readonly></textarea></label>
+    <p class="err" id="err" role="alert"></p>
+    <button class="btn" type="submit">ثبت درخواست نمایشی</button>
+    <p class="note full">این فرم نمایشی است؛ هیچ داده‌ای ارسال یا ذخیره نمی‌شود.</p>
+  </form>
+</section>
+</main>
+<footer class="foot">
+  <div><b>خط‌سنج</b> — نمونه‌کار طراحی وب · شرکت خیالی</div>
+  <div class="ltr">0900-000-0000 · demo@example.com</div>
+  <div><a href="https://mmhby6698-dot.github.io/shopino-web/">طراحی و ساخت: شاپینو</a></div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="js/app.js"></script>
+</body>
+</html>
